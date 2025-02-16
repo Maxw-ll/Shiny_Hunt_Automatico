@@ -7,8 +7,6 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 from PIL import Image
 import time
-import os
-
 
 senha="Coloque_sua_senha_aqui"
 cpf="coloque_seu_cpf como string"
@@ -37,6 +35,8 @@ Wait = WebDriverWait(driver, 200)
 pointer = PointerInput("touch", "finger")
 Actions = ActionBuilder(driver,mouse=pointer)
 
+screenshot_path = "pixel.png"
+
 Coords = {
 "Start": (977, 2050),
 "Select": (825, 2050),
@@ -51,16 +51,13 @@ Coords = {
 "Right": (350, 2200),
 "Left": (75, 2050),
 "Charmander_Coord": (323, 340),
-"Charmander_Pixel": (255, 146, 66, 255)
+"Charmander_Pixel": (255, 146, 66, 255),
+"Reset_label": (188, 1725),
+"Menu": (540, 1770),
+"Dialog_Coord": (1025, 715),
+"Dialog_Pixel": (0,0,0,0)
 }
 
-
-def connect_button(Xpath: str):
-    return Wait.until(EC.element_to_be_clickable((AppiumBy.XPATH, Xpath)))
-
-
-def cores_sao_semelhantes(rgb1, rgb2, tolerancia=10):
-    return all(abs(c1 - c2) <= tolerancia for c1, c2 in zip(rgb1, rgb2))
 
 
 def click(Coordenadas):
@@ -70,34 +67,44 @@ def click(Coordenadas):
     Actions.pointer_action.pause(0.1)
     Actions.pointer_action.pointer_up()
     Actions.perform()
-    print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
+    #print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
 
 
 def click_hold(Coordenadas):
     Actions.pointer_action.move_to_location(Coordenadas[0], Coordenadas[1])
     Actions.pointer_action.pointer_down()
-    Actions.pointer_action.pause(1)
+    Actions.pointer_action.pause(1.50)
     Actions.pointer_action.pointer_up()
     Actions.perform()
-    print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
+    #print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
 
 
 def make_reset():
-    pass
+    click(Coords["Menu"])
+    click(Coords["Reset_label"])
 
+
+def open_image(screenshot_path):
+    image = Image.open(screenshot_path)
+    return image
+   
+    
+    
 
 def verify_pixel(coordenadas, cor_esperada):
-    screenshot_path = "pixel.png"
+  
     driver.save_screenshot(screenshot_path)
-    image = Image.open(screenshot_path)
+
+    image = open_image(screenshot_path)
 
     rgb = image.getpixel(coordenadas)
-
-    print(rgb)
-
 
     if(cor_esperada != rgb):
         return False
 
     return True
+
+    
+
+    
 
