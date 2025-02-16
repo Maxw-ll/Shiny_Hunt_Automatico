@@ -33,14 +33,14 @@ while not_shiny:
         click(Coords["B"])
         click_hold(Coords["B"])
 
-    time.sleep(4.5)
+    time.sleep(4.75)
 
     click(Coords["Start"])
-    time.sleep(0.50)
+    time.sleep(0.75)
     click(Coords["A"])
-    time.sleep(0.50)
+    time.sleep(0.75)
     click(Coords["A"])
-    time.sleep(0.50)
+    time.sleep(0.75)
     click(Coords["A"])
     time.sleep(2)
 
