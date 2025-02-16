@@ -7,15 +7,72 @@ from management import *
 
 
 
+driver.implicitly_wait(10)
+
+#botao_skip = connect_button("//android.widget.Button[@resource-id='android:id/button2']")
+#botao_skip.click()
+
+#botao_select_folder = connect_button("//android.widget.Button[@resource-id='android:id/button3']")
+#botao_select_folder.click()
+
+#importar_pasta_button = connect_button("//android.widget.ImageButton[@resource-id='com.fastemulator.gba:id/import_rom']")
+#importar_pasta_button.click()
+
+#add_pasta = connect_button("//android.widget.TextView[@resource-id='com.fastemulator.gba:id/title' and @text='Add game folder']")
+#add_pasta.click()
+
+#selecionar_pokemon = connect_button("//android.widget.ImageView[@resource-id='com.google.android.documentsui:id/icon_thumb']")
+#selecionar_pokemon.click()
+
+#usar_esta_pasta_button = connect_button("//android.widget.Button[@resource-id='android:id/button1']")
+#usar_esta_pasta_button.click()
+
+#permitir_button = connect_button("//android.widget.Button[@resource-id='android:id/button1']")
+#permitir_button.click()
+
+#game_pokemon = connect_button("//android.widget.TextView[@resource-id='android:id/text1']")
+#game_pokemon.click()
+
+#ok_button = connect_button("//android.widget.Button[@resource-id='android:id/button1']")
+#ok_button.click()
+time.sleep(1)
+
+not_shiny = True
+
+while not_shiny:
+
+    click(Coords["Start"]) 
+
+    while verify_pixel(Coords["Max_Pokebola_Coord"], Coords["Max_Pokebola_Pixel"]) == False:
+
+        click(Coords["A"])
+        click_hold(Coords["A"])
 
 
-botao_skip = connect_button("//android.widget.Button[@resource-id='android:id/button2']")
-botao_select_folder = connect_button("//android.widget.Button[@resource-id='android:id/button3']")
-botao_skip.click()
+    while verify_pixel(Coords["Gary_Pokebola_Coord"], Coords["Gary_Pokebola_Pixel"]) == False:
+
+        click(Coords["B"])
+        click_hold(Coords["B"])
+
+    time.sleep(2)
+
+    click(Coords["Start"])
+    click(Coords["A"])
+    time.sleep(0.75)
+    click(Coords["A"])
+    time.sleep(0.5)
+    click(Coords["A"])
+    time.sleep(0.5)
+
+    if verify_pixel(Coords["Charmander_Coord"], Coords["Charmander_Pixel"]):
+        make_reset()
+    else:
+        not_shiny = False
+
+print("Shiny Encontrado!")
 
 
 
-selecionar_pokemon = connect_button("//android.widget.TextView[@resource-id='android:id/text1']")
 
 
 
