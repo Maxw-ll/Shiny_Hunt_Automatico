@@ -12,14 +12,18 @@ not_shiny = True
 
 
 Resets = 0
+Total_time = 0
 
 arquivo = 'Resets_Charmander.txt'
 
 arq = open(arquivo, 'r')
-Resets = int(arq.read())
+linhas = arq.readlines()
+Resets = int(linhas[0])
+Total_time = float(linhas[1])
 arq.close()
 
 while not_shiny:
+    start = time.time()
 
 
     while verify_pixel(Coords["Max_Pokebola_Coord"], Coords["Max_Pokebola_Pixel"]) == False:
@@ -48,18 +52,23 @@ while not_shiny:
         make_reset()
         Resets += 1
 
-        arq = open(arquivo, 'w')
-        arq.write(f"{Resets}")
-        arq.close()
-
     else:
         not_shiny = False
     
     print(f"Resets = {Resets}")
 
+    print(f"Tempo Reset: {time.time() - start}")
+
+    Total_time += time.time() - start
+
+    arq = open(arquivo, 'w')
+    arq.write(f"{Resets}\n")
+    arq.write(f"{Total_time}")
+    arq.close()
+
 arq  = open(arquivo, 'w')
-arq.write(f"Shiny  encontrado com {Resets} Resets")
-print(f"Shiny Encontrado! Com {Resets} resets")
+arq.write(f"Shiny  encontrado com {Resets} Resets e Tempo Total: {Total_time}")
+print(f"Shiny Encontrado! Com {Resets} Resets  e Tempo Total: {Total_time}")
 arq.close()
 
 

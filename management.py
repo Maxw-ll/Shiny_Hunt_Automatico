@@ -20,7 +20,7 @@ def formatar_cpf(cpf: str) -> str:
 options = UiAutomator2Options()
 options.platform_name = "Android"
 options.device_name = "31444565"
-options.app = "F:\\Shiny_Hunt_Automatico\\MyBoy.apk"
+options.app = "M:\\Shiny_Hunt_Automatico\\MyBoy.apk"
 options.automation_name = "UiAutomator2"
 options.no_reset = True
 options.full_reset = False
