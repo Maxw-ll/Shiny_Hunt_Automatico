@@ -26,27 +26,27 @@ while not_shiny:
     start = time.time()
 
 
-    while verify_pixel(Coords["Max_Pokebola_Coord"], Coords["Max_Pokebola_Pixel"]) == False:
+    while verify_pixel_fast(Coords["Max_Pokebola_Coord"], Coords["Max_Pokebola_Pixel"]) == False:
 
         click(Coords["A"])
-        click_hold(Coords["A"])
+        #click_hold(Coords["A"])
     
 
-    while verify_pixel(Coords["Gary_Pokebola_Coord"], Coords["Gary_Pokebola_Pixel"]) == False:
+    while verify_pixel_fast(Coords["Gary_Pokebola_Coord"], Coords["Gary_Pokebola_Pixel"]) == False:
 
         click(Coords["B"])
-        click_hold(Coords["B"])
+        #click_hold(Coords["B"])
 
-    time.sleep(4.75)
+    time.sleep(2.5)
 
     click(Coords["Start"])
-    time.sleep(0.75)
+    time.sleep(0.60)
     click(Coords["A"])
-    time.sleep(0.75)
+    time.sleep(0.60)
     click(Coords["A"])
-    time.sleep(0.75)
+    time.sleep(0.60)
     click(Coords["A"])
-    time.sleep(2)
+    time.sleep(2.5)
 
     if verify_pixel(Coords["Charmander_Coord"], Coords["Charmander_Pixel"]):
         make_reset()
@@ -66,10 +66,9 @@ while not_shiny:
     arq.write(f"{Total_time}")
     arq.close()
 
-arq  = open(arquivo, 'w')
-arq.write(f"Shiny  encontrado com {Resets} Resets e Tempo Total: {Total_time}")
+
 print(f"Shiny Encontrado! Com {Resets} Resets  e Tempo Total: {Total_time}")
-arq.close()
+
 
 
 

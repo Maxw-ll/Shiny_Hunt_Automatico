@@ -8,6 +8,13 @@ from selenium.webdriver.common.actions.pointer_input import PointerInput
 from PIL import Image
 import time
 
+
+import subprocess
+import io
+
+
+
+
 senha="Coloque_sua_senha_aqui"
 cpf="coloque_seu_cpf como string"
 
@@ -64,7 +71,7 @@ def click(Coordenadas):
     # Realizar o toque
     Actions.pointer_action.move_to_location(Coordenadas[0], Coordenadas[1])
     Actions.pointer_action.pointer_down()
-    Actions.pointer_action.pause(0.1)
+    Actions.pointer_action.pause(0.05)
     Actions.pointer_action.pointer_up()
     Actions.perform()
     #print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
@@ -73,7 +80,7 @@ def click(Coordenadas):
 def click_hold(Coordenadas):
     Actions.pointer_action.move_to_location(Coordenadas[0], Coordenadas[1])
     Actions.pointer_action.pointer_down()
-    Actions.pointer_action.pause(1.50)
+    Actions.pointer_action.pause(0.55)
     Actions.pointer_action.pointer_up()
     Actions.perform()
     #print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
@@ -88,7 +95,24 @@ def open_image(screenshot_path):
     image = Image.open(screenshot_path)
     return image
    
-    
+
+
+def verify_pixel_fast(coordenadas, cor_esperada):
+
+    # Captura a tela usando ADB diretamente para memória (sem arquivo)
+    screencap = subprocess.run(
+        ["adb", "exec-out", "screencap", "-p"],
+        capture_output=True
+    )
+
+    # Converte o resultado em uma imagem
+    image = Image.open(io.BytesIO(screencap.stdout))
+
+    # Obtém a cor do pixel
+    pixel_color = image.getpixel((coordenadas[0], coordenadas[1]))
+
+    return pixel_color == cor_esperada
+
     
 
 def verify_pixel(coordenadas, cor_esperada):
