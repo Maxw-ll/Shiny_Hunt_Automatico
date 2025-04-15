@@ -13,16 +13,6 @@ import subprocess
 import io
 
 
-
-
-senha="Coloque_sua_senha_aqui"
-cpf="coloque_seu_cpf como string"
-
-def formatar_cpf(cpf: str) -> str:
-    """Formata um CPF de uma sequência numérica para o padrão XXX.XXX.XXX-XX"""
-    cpf = cpf.zfill(11)  # Garante que tenha 11 dígitos
-    return f"{cpf[:3]},{cpf[3:6]},{cpf[6:9]}-{cpf[9:]}"
-
 # Configuração do Appium para Android 14 no dispostivo física RedmiNote13
 options = UiAutomator2Options()
 options.platform_name = "Android"
@@ -36,7 +26,7 @@ driver = webdriver.Remote("http://127.0.0.1:4723", options=options)
 
 
 # Aguarda o app carregar
-time.sleep(4)
+time.sleep(2)
 Wait = WebDriverWait(driver, 200)
 
 pointer = PointerInput("touch", "finger")
@@ -62,16 +52,17 @@ Coords = {
 "Reset_label": (188, 1725),
 "Menu": (540, 1770),
 "Dialog_Coord": (1025, 715),
-"Dialog_Pixel": (0,0,0,0)
+"Dialog_Pixel": (0,0,0,0),
+"Normal_Speed": (188, 920),
+"Fast_Foward": (188, 920)
 }
-
 
 
 def click(Coordenadas):
     # Realizar o toque
     Actions.pointer_action.move_to_location(Coordenadas[0], Coordenadas[1])
     Actions.pointer_action.pointer_down()
-    Actions.pointer_action.pause(0.05)
+    Actions.pointer_action.pause(0.02)
     Actions.pointer_action.pointer_up()
     Actions.perform()
     #print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
@@ -80,7 +71,7 @@ def click(Coordenadas):
 def click_hold(Coordenadas):
     Actions.pointer_action.move_to_location(Coordenadas[0], Coordenadas[1])
     Actions.pointer_action.pointer_down()
-    Actions.pointer_action.pause(0.55)
+    Actions.pointer_action.pause(0.04)
     Actions.pointer_action.pointer_up()
     Actions.perform()
     #print(f"Click Efetuado na Coordenada ({Coordenadas[0]}, {Coordenadas[1]})")
@@ -129,6 +120,10 @@ def verify_pixel(coordenadas, cor_esperada):
     return True
 
     
+def set_normal_speed():
+    click(Coords["Menu"])
+    click(Coords["Normal_Speed"])
 
-    
-
+def set_acelerate_speed():
+    click(Coords["Menu"])
+    click(Coords["Fast_Foward"])
